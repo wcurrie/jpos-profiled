@@ -1,11 +1,15 @@
 package x.foo;
 
 import org.jpos.core.SimpleConfiguration;
-import org.jpos.iso.*;
+import org.jpos.iso.ISOMsg;
+import org.jpos.iso.ISORequestListener;
+import org.jpos.iso.ISOServer;
+import org.jpos.iso.ISOSource;
 import org.jpos.iso.channel.XMLChannel;
 import org.jpos.iso.packager.XMLPackager;
 import org.jpos.util.ThreadPool;
 
+import java.lang.management.ManagementFactory;
 import java.util.Date;
 
 public class Server {
@@ -14,6 +18,9 @@ public class Server {
         XMLChannel clientSide = new XMLChannel(new XMLPackager());
         // without a logger on the channel we don't see send and receive only session-start and -end
         clientSide.setLogger(Common.LOGGER, "server");
+
+        String pid = ManagementFactory.getRuntimeMXBean().getName();
+        System.out.println("PID " + pid);
 
         ISOServer server = new ISOServer(10000, clientSide, new ThreadPool(1, 2, "simple-server"));
         server.setConfiguration(new SimpleConfiguration());
