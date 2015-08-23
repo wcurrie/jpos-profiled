@@ -17,7 +17,7 @@ public class Client {
         if (args.length > 1) {
             port = Integer.parseInt(args[1]);
         }
-        String serverPid = "38739";
+        String serverPid = new String(Files.readAllBytes(Common.SERVER_PID));
 
         long before = ThreadAlloc.getAllocatedBytes(serverPid, "simple-");
 

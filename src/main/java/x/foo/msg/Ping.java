@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
 
-import static java.nio.file.StandardOpenOption.CREATE_NEW;
+import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 public class Ping {
@@ -19,7 +19,7 @@ public class Ping {
     public static void main(String[] args) throws Exception {
         XMLPackager packager = new XMLPackager();
         byte[] bytes = packager.pack(build());
-        Files.write(PING_PATH, bytes, CREATE_NEW, TRUNCATE_EXISTING);
+        Files.write(PING_PATH, bytes, CREATE, TRUNCATE_EXISTING);
     }
 
     public static ISOMsg build() throws ISOException {
