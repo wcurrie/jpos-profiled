@@ -21,7 +21,7 @@
             <version>1.0</version>
             <systemPath>${java.home}/../lib/tools.jar</systemPath>
         </dependency>
-De    </dependencies>
+    </dependencies>
 
 
 </project>
