@@ -22,7 +22,7 @@ public class Client {
         long before = ThreadAlloc.getAllocatedBytes(serverPid, "simple-");
 
         XMLChannel channel = new XMLChannel(host, port, new XMLPackager());
-        channel.setLogger(Common.LOGGER, "server");
+        channel.setLogger(Common.logger("client"), "server");
         channel.connect();
         channel.send(Files.readAllBytes(Ping.PING_PATH));
         channel.receive();

@@ -7,6 +7,7 @@ import org.jpos.iso.ISOServer;
 import org.jpos.iso.ISOSource;
 import org.jpos.iso.channel.XMLChannel;
 import org.jpos.iso.packager.XMLPackager;
+import org.jpos.util.Logger;
 import org.jpos.util.ThreadPool;
 
 import java.lang.management.ManagementFactory;
@@ -21,7 +22,8 @@ public class Server {
     public static void main(String[] args) throws Exception {
         XMLChannel clientSide = new XMLChannel(new XMLPackager());
         // without a logger on the channel we don't see send and receive only session-start and -end
-        clientSide.setLogger(Common.LOGGER, "server");
+        Logger logger = Common.logger("server");
+        clientSide.setLogger(logger, "server");
 
         String pid = getPid();
         System.out.println("PID " + pid);
@@ -30,7 +32,7 @@ public class Server {
         ISOServer server = new ISOServer(10000, clientSide, new ThreadPool(1, 2, "simple-server"));
         server.setConfiguration(new SimpleConfiguration());
         server.addISORequestListener(pongListener());
-        server.setLogger(Common.LOGGER, "server");
+        server.setLogger(logger, "server");
         server.run();
     }
 
