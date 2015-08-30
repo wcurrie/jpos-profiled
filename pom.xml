@@ -7,7 +7,9 @@
     <groupId>x</groupId>
     <artifactId>foo</artifactId>
     <version>1.0-SNAPSHOT</version>
-    
+    <properties>
+        <aspectj.version>1.8.6</aspectj.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.jpos</groupId>
@@ -20,6 +22,17 @@
             <scope>system</scope>
             <version>1.0</version>
             <systemPath>${java.home}/../lib/tools.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

@@ -19,15 +19,22 @@ public class Client {
         }
         String serverPid = new String(Files.readAllBytes(Common.SERVER_PID));
 
-        long before = ThreadAlloc.getAllocatedBytes(serverPid, "simple-");
-
+        long beforeConnect = ThreadAlloc.getAllocatedBytes(serverPid, "simple-");
         XMLChannel channel = new XMLChannel(host, port, new XMLPackager());
         channel.setLogger(Common.logger("client"), "server");
         channel.connect();
-        channel.send(Files.readAllBytes(Ping.PING_PATH));
-        channel.receive();
+        logAllocation(serverPid, 0, beforeConnect);
 
+        for (int i = 0; i < 5; i++) {
+            long before = ThreadAlloc.getAllocatedBytes(serverPid, "simple-");
+            channel.send(Files.readAllBytes(Ping.PING_PATH));
+            channel.receive();
+            logAllocation(serverPid, i, before);
+        }
+    }
+
+    private static void logAllocation(String serverPid, int i, long before) throws Exception {
         long after = ThreadAlloc.getAllocatedBytes(serverPid, "simple-");
-        System.out.printf("%d: %d -> %d", (after - before), before, after);
+        System.out.printf("%d. %d: %d -> %d\n", i, (after - before), before, after);
     }
 }

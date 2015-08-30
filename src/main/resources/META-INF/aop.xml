@@ -1,0 +1,12 @@
+<aspectj>
+    <aspects>
+        <aspect name="x.foo.aspect.ChannelReceiveAspect"/>
+        <aspect name="x.foo.aspect.AllocationTrackingAspect"/>
+    </aspects>
+    <weaver options="-showWeaveInfo">
+        <include within="x.foo.aspect.*"/>
+        <include within="org.jpos.iso..*"/>
+        <include within="org.jpos.iso.ISOServer.Session"/>
+        <include within="org.xml..*"/>
+    </weaver>
+</aspectj>
